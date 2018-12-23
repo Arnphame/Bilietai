@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+  <!-- Page Content -->
+    <div class="container">
+      <!-- Page Heading -->
+      <h1 class="my-4">Filmai,
+        <small>rodomi šiuo metu</small>
+      </h1>
+
+      <div class="row">
+
+          {% for t in tickets %}
+          <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h3 class="card-title">
+                          {% if app.user and app.user.role == 1 %}
+                            <a href="{{ 'ticket/' ~ t.id }}">{{ t.name }}</a>
+                          {% else %}
+                            <a>{{ t.name }}</a>
+                          {% endif %}
+                      </h3>
+                        <p class="card-text">Kaina: {{ t.price }}</p>
+
+                        <p class="card-text">Galimi seansai:</p>
+                        <ul>
+                        {% for x in t.ticketTimes %}
+                            <li class="small">
+                                {{ x.name|date('Y-m-d H:i') }}
+                                <p class="card-text">Bilietų kiekis: {{ x.taken }}/{{ x.available }}</p>
+                            </li>
+                            <br>
+                        {% endfor %}
+                      </ul>
+                        {% set available = false %}
+                        {% for time in times %}
+                            {% if time.ticket == t %}
+                                {% if time.taken != time.available %}
+                                    {% set available = true %}
+                                 {% endif %}
+                             {% endif %}
+                        {% endfor %}
+                                {% if app.user and app.user.role == 1 %}
+                                   <p class="card-text">{% if available == false %}<a style="color: red;">Bilietų nebėra {% else %} <a href="{{ 'ticket/' ~ t.id }}">Pirkti bilietą</a> {% endif %}</p>
+                               {% else %}
+                                   <p class="card-text">{% if available == false %}<a style="color: red;">Bilietų nebėra {% else %} <a style="color: green;">Bilietų yra {% endif %}</p>
+                               {% endif %}
+                    </div>
+                  </div>
+          </div>
+          {% endfor %}
+    </div>
+    <!-- /.container -->
+{% endblock %}

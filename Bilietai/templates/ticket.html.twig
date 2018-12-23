@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <a>{{ ticket.name }}</a>
+                    </h3>
+                    <p class="card-text">Kaina: {{ ticket.price }}</p>
+                    <form action="{{ 'buy/' ~ ticket.id }}">
+                    {% for t in ticket.ticketTimes %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="time" id="exampleRadios1" value="{{ t.id }}" checked>
+                            <label class="form-check-label" for="exampleRadios1">
+                                {{ t.name|date('Y-m-d H:i') }} {% if t.taken == t.available %}<a style="color: red;">Bilietų nebėra {% else %}<button type="submit" class="btn btn-primary">Pirkti</button>{% endif %}
+                                    <p class="card-text">Bilietų kiekis: {{ t.taken }}/{{ t.available }}</p>
+                            </label>
+                        </div>
+                        <br>
+                    {% endfor %}
+                    </form>
+                </div>
+            </div>
+    </div>
+{% endblock %}

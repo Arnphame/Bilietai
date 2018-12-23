@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% for u in user.times %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    {{ u.ticket.name }}
+                                </h3>
+                                <p class="card-text">Seansas: {{ u.name|date('Y-m-d H:i') }}</p>
+                                <a href="{{ 'mytickets/cancel/' ~ u.ticket.id  }}">Atšaukti</a>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

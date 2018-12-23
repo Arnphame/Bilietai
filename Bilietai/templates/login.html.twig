@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        {% if error is defined and error is not empty %}
+            <div class="alert alert-danger">Netinkami prisijungimo duomenys</div>
+        {% endif %}
+            <div class="row">
+                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <div class="card card-signin my-5">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Prisijungimas</h5>
+                            <form action="{{ path('login') }}" method="post" class="form-signin">
+                                <div class="form-group">
+                                    <label for="username" class="bmd-label-floating">Prisijungimo vardas:</label>
+                                    <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password" class="bmd-label-floating">Slaptažodis:</label>
+                                    <input type="password" class="form-control" id="password" name="_password" />
+                                </div>
+
+                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Prisijungti</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

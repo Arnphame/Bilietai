@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        {% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+        {{ form_start(form) }}
+        {% if not form.vars.valid %}
+            {{ form_errors(form.username) }}
+            {{ form_errors(form.password.first) }}
+        {% endif %}
+
+        <br>
+
+        Prisijungimo vardas {{ form_widget(form.username) }}
+        Slaptažodis {{ form_widget(form.password.first) }}
+        Pakartokite slaptažodį {{ form_widget(form.password.second) }}
+
+        <button type="submit" class="btn btn-primary btn-raised">Registruotis</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
